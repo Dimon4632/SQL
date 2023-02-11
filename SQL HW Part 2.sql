@@ -5,7 +5,7 @@ SELECT
 FROM 
   employees e 
   JOIN employee_salary es ON e.id = es.employee_id 
-  JOIN salary s ON es.salary_id = s.id
+  JOIN salary s ON es.salary_id = s.id;
 
 /*Вывести всех работников у которых ЗП меньше 2000*/
 SELECT 
@@ -16,7 +16,7 @@ FROM
   JOIN employee_salary es ON e.id = es.employee_id 
   JOIN salary s ON es.salary_id = s.id 
 WHERE 
-  s.monthly_salary < 2000
+  s.monthly_salary < 2000;
 
 
 /*Вывести все зарплатные позиции, но работник по ним не назначен.
@@ -29,16 +29,51 @@ FROM
 WHERE 
   es.employee_id != e.id 
 ORDER BY 
-  es.employee_id
+  es.employee_id;
 
 
-
-/*Вывести все зарплатные позиции  меньше 2000 но работник по ним не назначен.
+  /*Вывести все зарплатные позиции  меньше 2000 но работник по ним не назначен.
  * (ЗП есть, но не понятно кто её получает.)*/
-
+SELECT 
+  s.monthly_salary 
+FROM 
+  employees e 
+  FULL JOIN employee_salary es ON e.id = es.employee_id 
+  FULL JOIN salary s ON es.salary_id = s.id 
+WHERE 
+  e.employee_name IS NULL 
+ORDER BY 
+  s.monthly_salary;
+ 
+ /*Вывести все зарплатные позиции  меньше 2000 но работник по ним не назначен. 
+  * (ЗП есть, но не понятно кто её получает.)*/
+SELECT  
+  s.monthly_salary 
+FROM  
+  employees e 
+  FULL JOIN employee_salary es ON e.id = es.employee_id 
+  FULL JOIN salary s ON es.salary_id = s.id 
+WHERE  
+  e.employee_name IS NULL  
+  AND s.monthly_salary < 2000 
+ORDER BY 
+  s.monthly_salary;
+ 
 
 /*Найти всех работников кому не начислена ЗП*/
+SELECT 
+  e.employee_name,
+  s.monthly_salary
+FROM 
+  employees e 
+  FULL JOIN employee_salary es ON e.id = es.employee_id 
+  FULL JOIN salary s ON es.salary_id = s.id 
+WHERE 
+  s.monthly_salary IS NULL 
+ORDER BY 
+  e.employee_name;
 
+  
 /*Вывести всех работников с названиями их должности*/
 SELECT 
   e.employee_name, 
@@ -46,7 +81,7 @@ SELECT
 FROM 
   employees e 
   JOIN roles_employee re ON e.id = re.employee_id 
-  JOIN roles r ON re.role_id = r.id
+  JOIN roles r ON re.role_id = r.id;
 
 
 /*Вывести имена и должность только Java разработчиков*/
@@ -58,7 +93,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE '% Java developer'
+  r.role_name LIKE '% Java developer';
 
 
 /*Вывести имена и должность только Python разработчиков*/
@@ -70,7 +105,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE '% Python developer'
+  r.role_name LIKE '% Python developer';
 
 
 /*Вывести имена и должность всех QA инженеров*/
@@ -82,7 +117,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE '% QA engineer'
+  r.role_name LIKE '% QA engineer';
 
 
 /*Вывести имена и должность ручных QA инженеров*/
@@ -94,7 +129,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE '% Manual QA engineer'
+  r.role_name LIKE '% Manual QA engineer';
 
 
 /*Вывести имена и должность автоматизаторов QA*/
@@ -106,7 +141,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE '% Automation QA engineer'
+  r.role_name LIKE '% Automation QA engineer';
 
 
 /*Вывести имена и зарплаты Junior специалистов*/
@@ -121,7 +156,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE 'Junior %'
+  r.role_name LIKE 'Junior %';
 
 
   /*Вывести имена и зарплаты Middle специалистов*/
@@ -136,7 +171,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE 'Middle %'
+  r.role_name LIKE 'Middle %';
   
 
 /*Вывести имена и зарплаты Senior специалистов*/
@@ -151,7 +186,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE 'Senior %'
+  r.role_name LIKE 'Senior %';
   
 
 /*Вывести зарплаты Java разработчиков*/
@@ -166,7 +201,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE '% Java developer'
+  r.role_name LIKE '% Java developer';
   
 
 /*Вывести зарплаты Python разработчиков*/
@@ -181,7 +216,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE '% Python developer'
+  r.role_name LIKE '% Python developer';
   
 
 /*Вывести имена и зарплаты Junior Python разработчиков*/
@@ -196,7 +231,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE 'Junior Python developer'
+  r.role_name LIKE 'Junior Python developer';
 
 /*Вывести имена и зарплаты Middle JS разработчиков*/
 SELECT 
@@ -210,7 +245,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE 'Middle JavaScript developer'
+  r.role_name LIKE 'Middle JavaScript developer';
 
 /*Вывести имена и зарплаты Senior Java разработчиков*/
 SELECT 
@@ -224,7 +259,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE 'Senior JavaScript developer'
+  r.role_name LIKE 'Senior JavaScript developer';
   
 
 /*Вывести зарплаты Junior QA инженеров*/
@@ -239,7 +274,7 @@ FROM
   JOIN roles_employee re ON e.id = re.employee_id 
   JOIN roles r ON re.role_id = r.id 
 WHERE 
-  r.role_name LIKE 'Junior % QA engineer'
+  r.role_name LIKE 'Junior % QA engineer';
   
 
 /*Вывести среднюю зарплату всех Junior специалистов*/
@@ -251,7 +286,7 @@ JOIN employee_salary es ON s.id = es.salary_id
 JOIN roles_employee re ON es.employee_id = re.employee_id 
 JOIN roles r ON re.role_id = r.id  
 WHERE 
-  r.role_name LIKE 'Junior %'
+  r.role_name LIKE 'Junior %';
   
 
 /*Вывести сумму зарплат JS разработчиков*/
@@ -263,7 +298,7 @@ JOIN employee_salary es ON s.id = es.salary_id
 JOIN roles_employee re ON es.employee_id = re.employee_id 
 JOIN roles r ON re.role_id = r.id  
 WHERE 
-  r.role_name LIKE '% JavaScript developer'
+  r.role_name LIKE '% JavaScript developer';
   
 
 /*Вывести минимальную ЗП QA инженеров*/
@@ -275,7 +310,7 @@ JOIN employee_salary es ON s.id = es.salary_id
 JOIN roles_employee re ON es.employee_id = re.employee_id 
 JOIN roles r ON re.role_id = r.id  
 WHERE 
-  r.role_name LIKE '% QA engineer'
+  r.role_name LIKE '% QA engineer';
   
 
 /*Вывести максимальную ЗП QA инженеров*/
@@ -287,7 +322,7 @@ JOIN employee_salary es ON s.id = es.salary_id
 JOIN roles_employee re ON es.employee_id = re.employee_id 
 JOIN roles r ON re.role_id = r.id  
 WHERE 
-  r.role_name LIKE '% QA engineer'
+  r.role_name LIKE '% QA engineer';
   
 
 /*Вывести количество QA инженеров*/
@@ -297,7 +332,7 @@ FROM
   roles r 
   JOIN roles_employee re ON r.id = re.role_id 
 WHERE 
-  r.role_name LIKE '% QA engineer'
+  r.role_name LIKE '% QA engineer';
  	
   	
 /*Вывести количество Middle специалистов*/
@@ -306,7 +341,7 @@ SELECT
 FROM
 	roles r 
 JOIN roles_employee re ON r.id = re.role_id 
-WHERE r.role_name LIKE 'Middle %'
+WHERE r.role_name LIKE 'Middle %';
 
 
 /*Вывести количество разработчиков*/
@@ -316,7 +351,7 @@ FROM
   roles r 
   JOIN roles_employee re ON r.id = re.role_id 
 WHERE 
-  r.role_name LIKE '% developer'
+  r.role_name LIKE '% developer';
 
 
 /*Вывести фонд (сумму) зарплаты разработчиков*/
@@ -328,7 +363,7 @@ FROM
   JOIN employee_salary es ON re.employee_id = es.employee_id 
   JOIN salary s ON es.salary_id = s.id 
 WHERE 
-  r.role_name LIKE '% developer'
+  r.role_name LIKE '% developer';
 
 
 /* Вывести имена, должности и ЗП всех специалистов по возрастанию*/
@@ -343,7 +378,7 @@ FROM
   JOIN employee_salary es ON re.employee_id = es.employee_id 
   JOIN salary s ON es.salary_id = s.id 
 ORDER BY 
-  s.monthly_salary
+  s.monthly_salary;
 
 
 /*Вывести имена, должности и ЗП всех специалистов по возрастанию 
@@ -360,7 +395,7 @@ FROM
   JOIN salary s ON es.salary_id = s.id 
 WHERE s.monthly_salary BETWEEN 1700 AND 2300
 ORDER BY 
-  s.monthly_salary
+  s.monthly_salary;
 
 
 /*Вывести имена, должности и ЗП всех специалистов по возрастанию
@@ -377,7 +412,7 @@ FROM
   JOIN salary s ON es.salary_id = s.id 
 WHERE s.monthly_salary < 2300
 ORDER BY 
-  s.monthly_salary
+  s.monthly_salary;
   
 
 /*Вывести имена, должности и ЗП всех специалистов по возрастанию
@@ -394,7 +429,7 @@ FROM
   JOIN salary s ON es.salary_id = s.id 
 WHERE s.monthly_salary IN (1100, 1500, 2000)
 ORDER BY 
-  s.monthly_salary
+  s.monthly_salary;
 
 
 
